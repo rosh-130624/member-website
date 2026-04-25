@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Southern Leyte Cooperative</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--green:#1a8a3c;--gl:#22a84a;--gp:#e8f7ed;--gm:#d0f0da;--gray:#f5f5f3;--gray2:#e8e8e5;--text:#1a1a1a;--muted:#555;--white:#fff;--red:#c0392b;--amber:#d4820a}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--text);background:var(--white);line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--black);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:36px;height:36px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:16px}
+.nav-logo-text{font-size:15px;font-weight:700;color:#fff;line-height:1.2}
+.nav-logo-text span{color:var(--gl);display:block;font-size:10px;font-weight:400;letter-spacing:.08em;text-transform:uppercase}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
+.nav-links a:hover{color:var(--gl)}
+.nav-cta{background:var(--green);color:#fff;padding:9px 18px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;transition:background .15s}
+.nav-cta:hover{background:var(--gl)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--black);padding:20px 5vw;z-index:99;flex-direction:column;gap:4px}
+.mobile-menu a{color:rgba(255,255,255,.8);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:14px}
+.mobile-menu.open{display:flex}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--black);display:flex;align-items:center;padding:100px 5vw 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(26,138,60,.18) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(26,138,60,.2);border:1px solid rgba(26,138,60,.4);color:var(--gl);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--gl);border-radius:50%;display:inline-block}
+.hero h1{font-size:clamp(30px,4.5vw,54px);font-weight:900;color:#fff;line-height:1.08;margin-bottom:18px;letter-spacing:-.02em}
+.hero h1 span{color:var(--gl)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);margin-bottom:28px;max-width:480px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--green);color:#fff;padding:13px 26px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;transition:all .15s;display:inline-block}
+.btn-primary:hover{background:var(--gl);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#fff;padding:12px 26px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;border:1.5px solid rgba(255,255,255,.25);transition:all .15s;display:inline-block}
+.btn-outline:hover{border-color:rgba(255,255,255,.6)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden;margin-top:36px}
+.hero-stat{background:rgba(255,255,255,.04);padding:18px;text-align:center}
+.hero-stat-val{font-size:24px;font-weight:900;color:var(--gl)}
+.hero-stat-label{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.hero-right{display:flex;flex-direction:column;gap:12px}
+.hero-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:14px;transition:all .2s}
+.hero-card:hover{background:rgba(26,138,60,.12);border-color:rgba(26,138,60,.3)}
+.hero-card-icon{width:42px;height:42px;background:rgba(26,138,60,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.hero-card-title{font-weight:700;color:#fff;font-size:13px}
+.hero-card-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+/* SECTIONS */
+section{padding:80px 5vw}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-block;background:var(--gp);color:var(--green);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(24px,3.5vw,38px);font-weight:900;color:var(--black);line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
+.section-title span{color:var(--green)}
+.section-sub{font-size:15px;color:var(--muted);max-width:540px;line-height:1.7}
+
+/* LOAN CALCULATOR */
+.calc-section{background:var(--black);padding:80px 5vw}
+.calc-section .section-tag{background:rgba(26,138,60,.2);color:var(--gl)}
+.calc-section .section-title{color:#fff}
+.calc-section .section-sub{color:rgba(255,255,255,.5)}
+.calc-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px;margin-top:36px}
+.calc-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
+.calc-field label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.calc-field input,.calc-field select{width:100%;padding:11px 14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;font-size:14px;color:#fff;font-family:inherit;transition:border .15s}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:var(--green)}
+.calc-field select option{background:#1a1a1a;color:#fff}
+.calc-field input::placeholder{color:rgba(255,255,255,.25)}
+.calc-btn{background:var(--green);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;width:100%;margin-top:4px}
+.calc-btn:hover{background:var(--gl)}
+.calc-results{display:none;margin-top:24px}
+.deductions-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px}
+.deductions-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.deduction-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.deduction-row:last-child{border-bottom:none;padding-top:12px;margin-top:4px}
+.deduction-row .label{color:rgba(255,255,255,.55)}
+.deduction-row .amount{font-weight:700;color:#fff}
+.deduction-row.total .label{color:#fff;font-weight:700;font-size:14px}
+.deduction-row.total .amount{color:var(--red);font-size:16px}
+.deduction-row.receive .label{color:var(--gl);font-weight:700;font-size:15px}
+.deduction-row.receive .amount{color:var(--gl);font-size:20px;font-weight:900}
+.calc-result-full{margin-top:20px}
+.method-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px}
+.method-box.annuity{border-color:rgba(26,138,60,.4);background:rgba(26,138,60,.04)}
+.method-title{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--gl)}
+.method-desc{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px;line-height:1.5}
+.method-highlight{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:16px;display:inline-block;background:rgba(26,138,60,.2);color:var(--gl)}
+.freq-table{width:100%;border-collapse:collapse;font-size:12px}
+.freq-table th{text-align:left;padding:7px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.08)}
+.freq-table td{padding:8px 8px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.75)}
+.freq-table tr:last-child td{border-bottom:none}
+.freq-table .amount-cell{font-weight:700;color:#fff}
+.method-totals{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.total-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0}
+.total-row .tl{color:rgba(255,255,255,.4)}
+.total-row .tv{font-weight:700;color:#fff}
+.total-row.interest .tv{color:#ff9999}
+.calc-note{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:16px;line-height:1.6}
+.calc-error{background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);color:#f1948a;padding:12px 16px;border-radius:8px;font-size:13px;display:none;margin-top:12px}
+
+/* ELIGIBILITY */
+.elig-section{background:var(--gray)}
+.elig-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.elig-box{background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.elig-box h3{font-size:17px;font-weight:800;margin-bottom:4px;color:var(--black)}
+.elig-box .sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.elig-field{margin-bottom:14px}
+.elig-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.elig-field select,.elig-field input{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:8px;font-size:13px;color:var(--text);font-family:inherit;transition:border .15s;background:#fff}
+.elig-field select:focus,.elig-field input:focus{outline:none;border-color:var(--green)}
+.elig-btn{width:100%;background:var(--black);color:#fff;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px;transition:background .15s}
+.elig-btn:hover{background:#222}
+.elig-result{display:none;margin-top:16px;padding:16px;border-radius:10px}
+.elig-result.eligible{background:var(--gp);border:1.5px solid var(--gm)}
+.elig-result.ineligible{background:#fdecea;border:1.5px solid #f5b7b1}
+.elig-result h4{font-size:15px;font-weight:800;margin-bottom:6px}
+.elig-result.eligible h4{color:var(--green)}
+.elig-result.ineligible h4{color:var(--red)}
+.elig-result p{font-size:13px;line-height:1.6}
+.elig-result.eligible p{color:#2e7d54}
+.elig-result.ineligible p{color:#922b21}
+.elig-info h3{font-size:22px;font-weight:900;color:var(--black);margin-bottom:12px;line-height:1.2}
+.elig-info h3 span{color:var(--green)}
+.elig-info p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.elig-rules{display:flex;flex-direction:column;gap:10px}
+.elig-rule{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--text)}
+.elig-rule-icon{width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:1px}
+
+/* ABOUT */
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-text p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.value-item{background:var(--gray);border-radius:10px;padding:14px;border-left:3px solid var(--green)}
+.value-item h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.value-item p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.about-box{background:var(--black);border-radius:16px;padding:32px;color:#fff}
+.about-box h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.about-box h3 span{color:var(--gl)}
+.about-box p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:18px}
+.highlight-item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.8);margin-bottom:9px}
+.highlight-dot{width:7px;height:7px;background:var(--gl);border-radius:50%;flex-shrink:0}
+
+/* SERVICES */
+.services{background:var(--gray)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:44px}
+.service-card{background:#fff;border:1.5px solid var(--gray2);border-radius:14px;padding:26px 22px;transition:all .2s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);transform:scaleX(0);transition:transform .2s}
+.service-card:hover{border-color:var(--green);box-shadow:0 8px 32px rgba(26,138,60,.1);transform:translateY(-2px)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-icon{width:48px;height:48px;background:var(--gp);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.service-card h3{font-size:15px;font-weight:800;margin-bottom:7px}
+.service-card p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.service-rate{display:inline-flex;align-items:center;background:var(--gp);color:var(--green);padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:14px}
+.req-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--gray2)}
+.req-section .req-title{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.req-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.req-list li{font-size:12px;color:var(--muted);display:flex;align-items:flex-start;gap:7px;line-height:1.4}
+.req-list li::before{content:'✓';font-size:11px;font-weight:700;color:var(--green);flex-shrink:0;margin-top:1px}
+.req-note{font-size:11px;color:var(--amber);font-style:italic;margin-top:8px;display:flex;align-items:flex-start;gap:5px}
+.req-note::before{content:'ℹ';font-size:12px;flex-shrink:0}
+.max-term{font-size:11px;color:var(--muted);margin-top:6px}
+.max-term b{color:var(--black)}
+
+/* HOW */
+.how{background:var(--black)}
+.how .section-title{color:#fff}
+.how .section-sub{color:rgba(255,255,255,.45)}
+.how .section-tag{background:rgba(26,138,60,.2);color:var(--gl)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:44px;position:relative}
+.steps::before{content:'';position:absolute;top:27px;left:10%;right:10%;height:1px;background:rgba(26,138,60,.25)}
+.step{text-align:center;padding:0 14px}
+.step-num{width:54px;height:54px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;margin:0 auto 16px;position:relative;z-index:1;border:3px solid var(--black)}
+.step h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:7px}
+.step p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
+
+/* FAQ */
+.faq{background:var(--gray)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+.faq-item{background:#fff;border-radius:12px;overflow:hidden;border:1.5px solid var(--gray2);transition:border .15s}
+.faq-item:hover{border-color:var(--green)}
+.faq-q{padding:16px 18px;font-weight:700;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none}
+.faq-q::after{content:'+';font-size:18px;font-weight:400;color:var(--green);flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 18px 16px;font-size:13px;color:var(--muted);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* APPLY */
+.apply{background:#fff}
+.apply-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:start}
+.apply-info h2{font-size:clamp(22px,3vw,34px);font-weight:900;color:var(--black);margin-bottom:12px;letter-spacing:-.02em;line-height:1.2}
+.apply-info h2 span{color:var(--green)}
+.apply-info p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.check-list{display:flex;flex-direction:column;gap:9px}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text)}
+.check-icon{width:20px;height:20px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px;color:#fff;font-weight:700}
+.form-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 24px rgba(0,0,0,.08);border:1.5px solid var(--gray2)}
+.form-card h3{font-size:16px;font-weight:800;color:var(--black);margin-bottom:3px}
+.form-card .form-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.form-group{margin-bottom:13px}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 12px;border:1.5px solid var(--gray2);border-radius:8px;font-size:13px;color:var(--text);background:#fff;font-family:inherit;transition:border .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--green)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-submit{width:100%;background:var(--green);color:#fff;border:none;padding:13px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;transition:background .15s}
+.form-submit:hover{background:var(--gl)}
+.form-note{font-size:11px;color:var(--muted);text-align:center;margin-top:9px;line-height:1.5}
+.success-msg{display:none;background:var(--gp);border:1.5px solid var(--gm);border-radius:10px;padding:20px;text-align:center}
+.success-msg h4{color:var(--green);font-size:16px;font-weight:800;margin-bottom:6px}
+.success-msg .ref{font-size:22px;font-weight:900;color:var(--green);margin:10px 0}
+.success-msg p{font-size:13px;color:#2e7d54}
+
+/* TRACK */
+.track{background:var(--black);padding:80px 5vw}
+.track .section-tag{background:rgba(26,138,60,.2);color:var(--gl)}
+.track .section-title{color:#fff}
+.track .section-sub{color:rgba(255,255,255,.45)}
+.track-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:40px}
+.track-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
+.track-field{margin-bottom:14px}
+.track-field label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.track-field input{width:100%;padding:11px 14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;font-size:14px;color:#fff;font-family:inherit}
+.track-field input:focus{outline:none;border-color:var(--green)}
+.track-field input::placeholder{color:rgba(255,255,255,.25)}
+.track-btn{width:100%;background:var(--green);color:#fff;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px;transition:background .15s}
+.track-btn:hover{background:var(--gl)}
+.track-result{display:none;margin-top:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:18px}
+.track-result h4{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px}
+.track-result .ref{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px}
+.track-result .status-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:14px}
+.status-new{background:rgba(26,74,138,.3);color:#7eb3ff}
+.status-pending{background:rgba(212,130,10,.2);color:#ffcc55}
+.status-approved{background:rgba(26,138,60,.2);color:var(--gl)}
+.status-partial{background:rgba(212,130,10,.2);color:#ffcc55}
+.status-rejected{background:rgba(192,57,43,.2);color:#ff9999}
+.track-info{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
+.track-steps-info{display:flex;flex-direction:column;gap:14px}
+.track-step-item{display:flex;gap:14px;align-items:flex-start}
+.track-step-num{width:32px;height:32px;background:rgba(26,138,60,.2);border:1px solid rgba(26,138,60,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gl);flex-shrink:0}
+.track-step-text h5{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.track-step-text p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--gray)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:40px}
+.testi-card{background:#fff;border-radius:14px;padding:22px;border:1.5px solid var(--gray2);position:relative}
+.testi-card::before{content:'"';font-size:60px;color:var(--gm);position:absolute;top:10px;right:16px;line-height:1;font-family:Georgia,serif}
+.testi-quote{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:36px;height:36px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+.testi-name{font-size:13px;font-weight:700;color:var(--black)}
+.testi-area{font-size:11px;color:var(--muted)}
+.testi-loan{display:inline-block;background:var(--gp);color:var(--green);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-top:3px}
+
+/* CONTACT */
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:36px}
+.contact-info{display:flex;flex-direction:column;gap:14px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.contact-icon{width:38px;height:38px;background:var(--gp);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.contact-item h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.contact-item p{font-size:13px;color:var(--muted);line-height:1.5}
+.map-placeholder{background:var(--gray);border-radius:14px;height:240px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;border:1.5px dashed var(--gray2)}
+.map-placeholder p{font-size:13px;color:var(--muted)}
+
+/* FOOTER */
+footer{background:var(--black);padding:48px 5vw 24px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+.footer-brand h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:6px}
+.footer-brand h3 span{color:var(--gl)}
+.footer-brand p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;max-width:280px;margin-top:8px}
+.footer-col h4{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:7px;transition:color .15s}
+.footer-col a:hover{color:var(--gl)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.25)}
+
+/* FAB */
+.fab{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:13px 20px;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(26,138,60,.4);z-index:99;transition:all .2s;display:flex;align-items:center;gap:8px}
+.fab:hover{background:var(--gl);transform:translateY(-2px)}
+.fab-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero-inner,.about-grid,.elig-inner,.apply-inner,.contact-grid,.track-inner,.footer-top{grid-template-columns:1fr}
+  .hero-right,.steps::before{display:none}
+  .calc-inputs{grid-template-columns:1fr}
+  .methods-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">SL</div>
+    <div class="nav-logo-text">Southern Leyte Cooperative<span>Est. Southern Leyte, Philippines</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#track">Track Application</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Apply Now</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#calculator" onclick="toggleMenu()">Loan Calculator</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#track" onclick="toggleMenu()">Track Application</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#apply" onclick="toggleMenu()" style="color:var(--gl);font-weight:700">Apply for a Loan</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Serving Southern Leyte</div>
+      <h1>Your Community.<br><span>Your Cooperative.</span><br>Your Future.</h1>
+      <p class="hero-sub">Southern Leyte Cooperative offers affordable loans, savings programs, and insurance — built for every Filipino in Southern Leyte.</p>
+      <div class="hero-btns">
+        <a href="#calculator" class="btn-primary">Compute My Loan</a>
+        <a href="#apply" class="btn-outline">Apply Now</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-val">2%</div><div class="hero-stat-label">Monthly Rate</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">100%</div><div class="hero-stat-label">Transparent</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">4</div><div class="hero-stat-label">Loan Types</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card"><div class="hero-card-icon">💼</div><div><div class="hero-card-title">Business Loan</div><div class="hero-card-sub">Up to ₱150,000 · Max 60 months</div></div></div>
+      <div class="hero-card"><div class="hero-card-icon">🎓</div><div><div class="hero-card-title">Educational Loan</div><div class="hero-card-sub">Up to ₱50,000 · Max 36 months</div></div></div>
+      <div class="hero-card"><div class="hero-card-icon">💰</div><div><div class="hero-card-title">Salary Loan</div><div class="hero-card-sub">Up to ₱30,000 · Max 24 months</div></div></div>
+      <div class="hero-card"><div class="hero-card-icon">🛡️</div><div><div class="hero-card-title">Loan Insurance</div><div class="hero-card-sub">₱1,235/year · Included with all loans</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOAN CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="section-inner">
+    <div class="section-tag">Loan Calculator</div>
+    <h2 class="section-title">Know Exactly What<br><span style="color:var(--gl)">You Will Receive & Pay</span></h2>
+    <p class="section-sub">Enter your desired loan amount and see the full breakdown — deductions, amount you receive, and payment schedules — before you apply.</p>
+    <div class="calc-box">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label>Loan Type</label>
+          <select id="c-type" onchange="updateTerms()">
+            <option value="business">Business Loan (max ₱150,000)</option>
+            <option value="educational">Educational Loan (max ₱50,000)</option>
+            <option value="salary">Salary Loan (max ₱30,000)</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Loan Amount (₱)</label>
+          <input type="number" id="c-amount" placeholder="e.g. 10000" min="3000">
+        </div>
+        <div class="calc-field">
+          <label>Loan Term</label>
+          <select id="c-term"></select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="computeLoan()">Compute My Loan</button>
+      <div class="calc-error" id="calc-error"></div>
+      <div class="calc-results" id="calc-results">
+        <div class="deductions-box">
+          <div class="deductions-title">Loan Deductions Breakdown</div>
+          <div id="deductions-rows"></div>
+        </div>
+        <div class="method-box annuity" style="border-color:rgba(26,138,60,.3)">
+          <div class="method-title">Your Payment Schedule — Diminishing Annuity</div>
+          <div class="method-desc">Equal payments every period for the entire loan term. Easy to budget — you always know exactly how much to pay.</div>
+          <div class="method-highlight">Same amount every payment period</div>
+          <table class="freq-table">
+            <thead><tr><th>Payment Frequency</th><th>Amount Per Payment</th><th>Payments Per Year</th></tr></thead>
+            <tbody id="annuity-rows"></tbody>
+          </table>
+          <div class="method-totals" id="annuity-totals"></div>
+        </div>
+        <p class="calc-note">* Computations are based on 2% monthly interest rate. Deductions (service fee, insurance, share capital) are taken from the loan proceeds upfront. You repay the full loan principal plus interest. This calculator is for reference only — actual figures may vary slightly. Please consult our office for your official loan schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGIBILITY -->
+<section class="elig-section" id="eligibility">
+  <div class="section-inner">
+    <div class="elig-inner">
+      <div class="elig-info">
+        <div class="section-tag">Eligibility Checker</div>
+        <h3>Are You <span>Eligible</span> for a Loan?</h3>
+        <p>Answer 3 quick questions and find out if you qualify for a loan with Southern Leyte Cooperative before you even apply. This takes less than 30 seconds.</p>
+        <div class="elig-rules">
+          <div class="elig-rule"><div class="elig-rule-icon">1</div><span>You must be a registered member of the cooperative or willing to become one.</span></div>
+          <div class="elig-rule"><div class="elig-rule-icon">2</div><span>You must have a stable source of income — employment, business, or farming.</span></div>
+          <div class="elig-rule"><div class="elig-rule-icon">3</div><span>You must have at least 2 co-makers who are also cooperative members or residents of Southern Leyte.</span></div>
+          <div class="elig-rule"><div class="elig-rule-icon">4</div><span>You must not have any existing unpaid overdue loans with the cooperative.</span></div>
+        </div>
+      </div>
+      <div class="elig-box">
+        <h3>Quick Eligibility Check</h3>
+        <p class="sub">Answer honestly for accurate results</p>
+        <div class="elig-field">
+          <label>Are you a member of the cooperative?</label>
+          <select id="e-member">
+            <option value="">Select an answer</option>
+            <option value="yes">Yes, I am already a member</option>
+            <option value="willing">Not yet, but I am willing to join</option>
+            <option value="no">No, and I do not want to join</option>
+          </select>
+        </div>
+        <div class="elig-field">
+          <label>What is your monthly income?</label>
+          <select id="e-income">
+            <option value="">Select income range</option>
+            <option value="none">No regular income</option>
+            <option value="low">Below ₱5,000/month</option>
+            <option value="mid">₱5,000 – ₱15,000/month</option>
+            <option value="high">₱15,000 – ₱30,000/month</option>
+            <option value="vhigh">Above ₱30,000/month</option>
+          </select>
+        </div>
+        <div class="elig-field">
+          <label>Do you have any existing overdue loans?</label>
+          <select id="e-overdue">
+            <option value="">Select an answer</option>
+            <option value="no">No, I have no overdue loans</option>
+            <option value="yes">Yes, I have overdue loans</option>
+            <option value="none">I have never borrowed before</option>
+          </select>
+        </div>
+        <button class="elig-btn" onclick="checkEligibility()">Check My Eligibility</button>
+        <div class="elig-result" id="elig-result"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-tag">About Us</div>
+        <h2 class="section-title">Built by the Community,<br><span>For the Community</span></h2>
+        <p>Southern Leyte Cooperative is a member-owned financial cooperative serving the people of Southern Leyte. We believe every Filipino deserves access to affordable financial services — regardless of income level or background.</p>
+        <p>Our cooperative was founded on the principle that when people work together, everyone benefits. Every peso you deposit strengthens our community. Every loan we give helps a family grow.</p>
+        <div class="about-values">
+          <div class="value-item"><h4>Integrity</h4><p>Transparent and honest in all transactions</p></div>
+          <div class="value-item"><h4>Community</h4><p>Every member matters. Every peso counts.</p></div>
+          <div class="value-item"><h4>Accessibility</h4><p>Financial services within everyone's reach</p></div>
+          <div class="value-item"><h4>Growth</h4><p>We grow when our members grow</p></div>
+        </div>
+      </div>
+      <div class="about-box">
+        <h3>Why Choose <span>Southern Leyte Cooperative?</span></h3>
+        <p>We are not a bank. We are your neighbors, your community. When you borrow from us, the interest goes back to benefit all members.</p>
+        <div class="highlight-item"><div class="highlight-dot"></div>Low 2% monthly diminishing interest rate</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>No hidden fees — all deductions shown upfront</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>Flexible payments: daily, weekly, twice a month, or monthly</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>Loan insurance ₱1,235/year — your family is protected</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>Fast loan processing — apply online in minutes</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>Collector visits you — no need to travel far</div>
+        <div class="highlight-item"><div class="highlight-dot"></div>100% Filipino, 100% community-owned cooperative</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-tag">Our Loans</div>
+    <h2 class="section-title">Loans Designed for<br><span>Real Filipino Needs</span></h2>
+    <p class="section-sub">All loans use diminishing interest at 2% per month. Deductions: 2% service fee + ₱1,235 insurance/year + 5% share capital.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">💼</div>
+        <h3>Business Loan</h3>
+        <p>Fund your sari-sari store, farming, fishing, or any livelihood project. Perfect for growing your small business.</p>
+        <div class="service-rate">2% / month · Diminishing</div>
+        <div class="max-term">Maximum amount: <b>₱150,000</b> · Max term: <b>60 months (5 years)</b></div>
+        <div class="req-section">
+          <div class="req-title">Basic Requirements</div>
+          <ul class="req-list">
+            <li>2 valid government IDs</li>
+            <li>Proof of business or livelihood</li>
+            <li>2 co-makers with valid IDs</li>
+            <li>Barangay certificate</li>
+            <li>Completed application form</li>
+          </ul>
+          <div class="req-note">Additional documents may be required depending on loan amount and type. Our team will inform you after reviewing your application.</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>Educational Loan</h3>
+        <p>For tuition, school supplies, uniforms, and board. Invest in your children's education without financial stress.</p>
+        <div class="service-rate">2% / month · Diminishing</div>
+        <div class="max-term">Maximum amount: <b>₱50,000</b> · Max term: <b>36 months (3 years)</b></div>
+        <div class="req-section">
+          <div class="req-title">Basic Requirements</div>
+          <ul class="req-list">
+            <li>2 valid government IDs</li>
+            <li>School enrollment form or registration</li>
+            <li>2 co-makers with valid IDs</li>
+            <li>Barangay certificate</li>
+            <li>Completed application form</li>
+          </ul>
+          <div class="req-note">Additional documents may be required depending on loan amount. Our team will guide you through the process.</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💰</div>
+        <h3>Salary Loan</h3>
+        <p>For employed members who need quick access to funds. Repayments are aligned with your salary schedule.</p>
+        <div class="service-rate">2% / month · Diminishing</div>
+        <div class="max-term">Maximum amount: <b>₱30,000</b> · Max term: <b>24 months (2 years)</b></div>
+        <div class="req-section">
+          <div class="req-title">Basic Requirements</div>
+          <ul class="req-list">
+            <li>2 valid government IDs</li>
+            <li>Latest payslip (1–3 months)</li>
+            <li>Certificate of employment</li>
+            <li>2 co-makers with valid IDs</li>
+            <li>Completed application form</li>
+          </ul>
+          <div class="req-note">Additional documents may be required. Your collector will inform you if anything else is needed.</div>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Loan Insurance</h3>
+        <p>Every loan member is automatically covered. If you pass away or become permanently disabled, your remaining loan balance is waived — protecting your family.</p>
+        <div class="service-rate">₱1,235 per year · Auto-included</div>
+        <div class="req-section">
+          <div class="req-title">Coverage Includes</div>
+          <ul class="req-list">
+            <li>Full loan balance waiver upon death</li>
+            <li>Permanent disability coverage</li>
+            <li>Accidental death benefit</li>
+            <li>No separate application needed</li>
+          </ul>
+          <div class="req-note">Insurance is charged annually. A 1-year premium of ₱1,235 is deducted upfront from your loan proceeds every year of your loan term.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="section-tag">How It Works</div>
+    <h2 class="section-title" style="color:#fff">Apply in <span style="color:var(--gl)">4 Simple Steps</span></h2>
+    <p class="section-sub">No need to travel to the office just to apply. Do it online from your phone.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h4>Compute First</h4><p>Use our loan calculator above to see exactly how much you will receive and pay.</p></div>
+      <div class="step"><div class="step-num">2</div><h4>Fill the Form</h4><p>Complete the online application below with your personal and loan information.</p></div>
+      <div class="step"><div class="step-num">3</div><h4>We Review</h4><p>Our team reviews your application within 1–2 business days and contacts you via SMS.</p></div>
+      <div class="step"><div class="step-num">4</div><h4>Receive Funds</h4><p>Once approved, your collector visits you or you may claim at our office. Your choice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-inner">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+    <p class="section-sub">Everything you need to know before applying. Still have questions? Contact us directly.</p>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How much will I actually receive after deductions?</div><div class="faq-a">You will receive the loan amount minus: (1) Service fee of 2% of the loan amount, (2) Insurance of ₱1,235 per year, and (3) Share capital of 5% of the loan amount. Use our Loan Calculator above to see the exact amount you will receive before applying.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the difference between the two payment methods?</div><div class="faq-a">Diminishing Annuity means you pay the same amount every period — easy to budget. Diminishing Balance means your payment decreases every period as your balance goes down — you pay less total interest overall. You can choose whichever method suits you better. Use the calculator to compare them side by side.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I pay earlier than my scheduled term?</div><div class="faq-a">Yes! Early payment is allowed and even encouraged. Since we use diminishing interest, paying early means you pay less interest overall. There are no penalties for early payment. Just inform your assigned collector or visit our office.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What happens if I miss a payment?</div><div class="faq-a">A missed payment may incur a penalty charge. We encourage members to inform their collector in advance if they are having difficulty paying on time. We are willing to discuss restructuring options for members facing genuine financial hardship.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What happens to my loan if I pass away?</div><div class="faq-a">Your loan is fully covered by the cooperative's insurance program. If a borrower passes away or becomes permanently disabled, the remaining loan balance is automatically waived. Your family will not be required to pay the remaining balance. This is why the insurance fee is charged — it protects your loved ones.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I apply for another loan while paying my current one?</div><div class="faq-a">It depends on your current balance and payment history. Members with a good payment record may be eligible for a second loan or a loan top-up. Please visit our office or contact your assigned collector for evaluation. Approval is subject to the cooperative's lending policy.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Why do I need 2 co-makers?</div><div class="faq-a">Co-makers serve as guarantors for your loan. If you are unable to pay, the co-makers are responsible for the remaining balance. Having 2 co-makers gives the cooperative added assurance and helps you get approved faster. Co-makers must have valid IDs and ideally be members of the cooperative or residents of Southern Leyte.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does loan approval take?</div><div class="faq-a">Most loan applications are reviewed within 1–2 business days. You will receive an SMS notification once your application has been processed. For larger loan amounts or incomplete requirements, processing may take a few more days. Submitting complete requirements speeds up the process significantly.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="apply" id="apply">
+  <div class="section-inner">
+    <div class="apply-inner">
+      <div class="apply-info">
+        <div class="section-tag">Apply Online</div>
+        <h2>Ready to Apply?<br><span>It Takes 3 Minutes.</span></h2>
+        <p>Fill out the form and our team will contact you within 1–2 business days. No need to visit the office just to apply — do it from your phone.</p>
+        <div class="check-list">
+          <div class="check-item"><div class="check-icon">✓</div><span>100% free — no application processing fee</span></div>
+          <div class="check-item"><div class="check-icon">✓</div><span>Your information is kept private and secure</span></div>
+          <div class="check-item"><div class="check-icon">✓</div><span>We will SMS or call you within 1–2 business days</span></div>
+          <div class="check-item"><div class="check-icon">✓</div><span>Low 2% monthly diminishing interest — no hidden charges</span></div>
+          <div class="check-item"><div class="check-icon">✓</div><span>Flexible payments: daily, weekly, twice a month, monthly</span></div>
+          <div class="check-item"><div class="check-icon">✓</div><span>Use the Loan Calculator above to know your exact payment before applying</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <h3>Loan Application Form</h3>
+          <p class="form-sub">Southern Leyte Cooperative · All fields are required</p>
+          <div id="appForm">
+            <!-- STEP 1: Member type selection -->
+            <div id="member-type-step">
+              <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:10px">Are you an existing member?</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+                <div id="type-new" onclick="selectMemberType('new')" style="border:1.5px solid var(--gray2);border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+                  <div style="font-size:22px;margin-bottom:6px">👤</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--black)">New Applicant</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:3px">First time applying</div>
+                </div>
+                <div id="type-reloan" onclick="selectMemberType('reloan')" style="border:1.5px solid var(--gray2);border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all .15s">
+                  <div style="font-size:22px;margin-bottom:6px">🔄</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--black)">Existing Member</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:3px">Re-loan application</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NEW APPLICANT FORM -->
+            <div id="new-applicant-form" style="display:none">
+              <div style="background:var(--gp);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--green);font-weight:600">New Applicant — Please fill in all details below</div>
+              <div class="form-row">
+                <div class="form-group"><label>First Name</label><input type="text" id="f-fname" placeholder="Maria"></div>
+                <div class="form-group"><label>Last Name</label><input type="text" id="f-lname" placeholder="Santos"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Contact Number</label><input type="tel" id="f-phone" placeholder="09XX-XXX-XXXX"></div>
+                <div class="form-group"><label>Date of Birth</label><input type="date" id="f-dob"></div>
+              </div>
+              <div class="form-group"><label>Complete Address</label><input type="text" id="f-address" placeholder="Barangay, Municipality, Southern Leyte"></div>
+              <div class="form-row">
+                <div class="form-group"><label>Loan Type</label>
+                  <select id="f-loantype">
+                    <option value="">Select loan type</option>
+                    <option>Business Loan</option>
+                    <option>Educational Loan</option>
+                    <option>Salary Loan</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>Loan Amount (₱)</label><input type="number" id="f-amount" placeholder="min ₱3,000"></div>
+              </div>
+              <div class="form-group"><label>Purpose of Loan</label><input type="text" id="f-purpose" placeholder="e.g. Buy sari-sari store supplies"></div>
+              <div class="form-row">
+                <div class="form-group"><label>Monthly Income (₱)</label><input type="number" id="f-income" placeholder="0"></div>
+                <div class="form-group"><label>Preferred Payment Schedule</label>
+                  <select id="f-payment">
+                    <option value="">Select schedule</option>
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Twice a Month (15th & 30th)</option>
+                    <option>Monthly</option>
+                  </select>
+                </div>
+              </div>
+              <button class="form-submit" onclick="submitApp('new')">Submit My Application</button>
+              <p class="form-note">By submitting, you agree that we may contact you via SMS or phone call regarding your application.</p>
+            </div>
+
+            <!-- RE-LOAN FORM -->
+            <div id="reloan-form" style="display:none">
+              <div style="background:#e8f0fa;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--blue);font-weight:600">Existing Member — Re-loan Application</div>
+              <div class="form-row">
+                <div class="form-group"><label>Member ID</label><input type="text" id="rl-memberid" placeholder="e.g. MEM-001"></div>
+                <div class="form-group"><label>Contact Number</label><input type="tel" id="rl-phone" placeholder="09XX-XXX-XXXX"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Loan Type</label>
+                  <select id="rl-loantype">
+                    <option value="">Select loan type</option>
+                    <option>Business Loan</option>
+                    <option>Educational Loan</option>
+                    <option>Salary Loan</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>Loan Amount Requested (₱)</label><input type="number" id="rl-amount" placeholder="min ₱3,000"></div>
+              </div>
+              <div class="form-group"><label>Purpose of New Loan</label><input type="text" id="rl-purpose" placeholder="e.g. Expand sari-sari store"></div>
+              <div class="form-group"><label>Preferred Payment Schedule</label>
+                <select id="rl-payment">
+                  <option value="">Select schedule</option>
+                  <option>Daily</option>
+                  <option>Weekly</option>
+                  <option>Twice a Month (15th & 30th)</option>
+                  <option>Monthly</option>
+                </select>
+              </div>
+              <div style="background:#fff8e8;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber);margin-bottom:12px">
+                ℹ️ Your existing member details are already on file. Only your new loan request is needed.
+              </div>
+              <button class="form-submit" onclick="submitApp('reloan')">Submit Re-loan Application</button>
+              <p class="form-note">By submitting, you agree that we may contact you via SMS or phone call regarding your application.</p>
+            </div>
+          </div>
+          <div class="success-msg" id="successMsg">
+            <div style="font-size:38px;margin-bottom:8px">✅</div>
+            <h4>Application Submitted!</h4>
+            <div class="ref" id="appRef"></div>
+            <p>Our team will contact you within <strong>1–2 business days</strong> via SMS or phone call.</p>
+            <p style="margin-top:8px;font-size:12px">Save your reference number and use it to <a href="#track" style="color:var(--green);font-weight:700">track your application</a> status anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER PORTAL + TRACK APPLICATION -->
+<section class="track" id="track">
+  <div class="section-inner">
+    <div class="section-tag">Member Portal</div>
+    <h2 class="section-title">Your Loans,<br><span style="color:var(--gl)">Anytime, Anywhere</span></h2>
+    <p class="section-sub">Check your loan balance, payment history, and application status online. Full transparency — no need to call or visit the office.</p>
+
+    <!-- TAB SWITCHER -->
+    <div style="display:flex;gap:4px;background:rgba(255,255,255,.06);border-radius:10px;padding:5px;margin-top:28px;margin-bottom:28px;max-width:440px">
+      <button id="portal-tab-btn" onclick="switchPortalTab('portal')" style="flex:1;padding:9px;border:none;border-radius:7px;background:var(--green);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">My Loan Details</button>
+      <button id="track-tab-btn" onclick="switchPortalTab('track')" style="flex:1;padding:9px;border:none;border-radius:7px;background:transparent;color:rgba(255,255,255,.6);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">Track Application</button>
+    </div>
+
+    <div class="track-inner">
+
+      <!-- MEMBER PORTAL TAB -->
+      <div id="portal-tab">
+        <div class="track-box">
+          <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:16px">Sign in to view your loan details</div>
+          <div class="track-field"><label>Member ID</label><input type="text" id="p-memberid" placeholder="e.g. MEM-001"></div>
+          <div class="track-field"><label>Registered Phone Number</label><input type="tel" id="p-phone" placeholder="09XX-XXX-XXXX"></div>
+          <button class="track-btn" onclick="viewMemberPortal()">View My Loan Details</button>
+          <div id="portal-result" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- TRACK APPLICATION TAB -->
+      <div id="track-tab" style="display:none">
+        <div class="track-box">
+          <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:16px">Enter your application details</div>
+          <div class="track-field"><label>Reference Number</label><input type="text" id="t-ref" placeholder="e.g. APP-0001"></div>
+          <div class="track-field"><label>Phone Number</label><input type="tel" id="t-phone" placeholder="09XX-XXX-XXXX"></div>
+          <button class="track-btn" onclick="trackApplication()">Track My Application</button>
+          <div class="track-result" id="track-result"></div>
+        </div>
+      </div>
+
+      <!-- STATUS GUIDE (always visible) -->
+      <div class="track-steps-info">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">What Each Status Means</div>
+        <div class="track-step-item"><div class="track-step-num">1</div><div class="track-step-text"><h5>New</h5><p>Your application was received and is waiting to be reviewed by our team.</p></div></div>
+        <div class="track-step-item"><div class="track-step-num">2</div><div class="track-step-text"><h5>Pending</h5><p>We are reviewing your application. We may contact you for additional requirements.</p></div></div>
+        <div class="track-step-item"><div class="track-step-num">3</div><div class="track-step-text"><h5>Approved</h5><p>Congratulations! Your loan is approved. Visit the office with your valid ID to claim.</p></div></div>
+        <div class="track-step-item"><div class="track-step-num">4</div><div class="track-step-text"><h5>Partial Approval</h5><p>Approved for a different amount. Check your SMS for details and visit our office.</p></div></div>
+        <div class="track-step-item"><div class="track-step-num">5</div><div class="track-step-text"><h5>Rejected</h5><p>Not approved this time. Visit our office to discuss your options.</p></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">Member Stories</div>
+    <h2 class="section-title">Real Stories from <span>Real Members</span></h2>
+    <p class="section-sub">Hear from members whose lives have been changed by Southern Leyte Cooperative.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-quote">I used the loan calculator before applying and I knew exactly how much I would receive. No surprises at all. The process was very transparent and our collector is very approachable.</p>
+        <div class="testi-author"><div class="testi-avatar">MS</div><div><div class="testi-name">Maria Santos</div><div class="testi-area">Hinundayan</div><div class="testi-loan">Business Loan</div></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">My daughter was able to go to college because of the educational loan. The monthly payment is very manageable and the collector comes to our house every month. Very convenient.</p>
+        <div class="testi-author"><div class="testi-avatar">RC</div><div><div class="testi-name">Rosa Cabahug</div><div class="testi-area">Saint Bernard</div><div class="testi-loan">Educational Loan</div></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">When my husband passed away, I was worried about our loan. But the insurance covered everything — I did not have to pay a single peso of the remaining balance. The cooperative really cares.</p>
+        <div class="testi-author"><div class="testi-avatar">AL</div><div><div class="testi-name">Ana Lim</div><div class="testi-area">San Juan</div><div class="testi-loan">Loan Insurance</div></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">I applied online using my phone while at home. Two days later, our collector called me and told me I was approved. I did not have to take a day off from work just to go to the office.</p>
+        <div class="testi-author"><div class="testi-avatar">PV</div><div><div class="testi-name">Pedro Villanueva</div><div class="testi-area">Hinunangan</div><div class="testi-loan">Salary Loan</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Contact Us</div>
+    <h2 class="section-title">We Are Here to <span>Help You</span></h2>
+    <p class="section-sub">Have questions? Our team is ready to assist you from Monday to Saturday.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Office Address</h4><p>Southern Leyte Cooperative<br>San Juan, Southern Leyte<br><span style="font-size:12px;color:#888">Near St. John Pharmacy</span></p></div></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><div><h4>Phone / SMS</h4><p>Contact number here<br>Mon–Sat, 8:00 AM – 5:00 PM</p></div></div>
+        <div class="contact-item"><div class="contact-icon">📧</div><div><h4>Email</h4><p>Email address here<br>We reply within 24 hours</p></div></div>
+        <div class="contact-item"><div class="contact-icon">🕐</div><div><h4>Office Hours</h4><p>Monday – Friday: 8:00 AM – 5:00 PM<br>Saturday: 8:00 AM – 11:00 AM</p></div></div>
+        <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Area Assignments</h4><p>Hinundayan · Saint Bernard<br>San Juan · Hinunangan</p></div></div>
+      </div>
+      <div style="border-radius:14px;overflow:hidden;height:300px;border:1.5px solid var(--gray2)">
+        <iframe
+          src="https://maps.google.com/maps?q=San+Juan+Southern+Leyte+Philippines&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="300"
+          style="border:0;display:block"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Southern Leyte Cooperative Office Location — San Juan, Southern Leyte">
+        </iframe>
+        <div style="background:#fff;padding:10px 14px;border-top:1px solid var(--gray2);display:flex;align-items:center;gap:8px">
+          <span style="font-size:14px">📍</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--black)">San Juan, Southern Leyte</div>
+            <div style="font-size:11px;color:var(--muted)">Near St. John Pharmacy</div>
+          </div>
+          <a href="https://maps.google.com/?q=San+Juan+Southern+Leyte+Philippines" target="_blank" style="margin-left:auto;font-size:11px;color:var(--green);font-weight:700;text-decoration:none">Open in Maps ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><h3><span>Southern Leyte</span> Cooperative</h3><p>A member-owned financial cooperative serving the communities of Southern Leyte. Building a stronger future, together.</p></div>
+      <div class="footer-col"><h4>Services</h4><a href="#services">Business Loan</a><a href="#services">Educational Loan</a><a href="#services">Salary Loan</a><a href="#services">Loan Insurance</a></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="#calculator">Loan Calculator</a><a href="#eligibility">Eligibility Checker</a><a href="#apply">Apply Now</a><a href="#track">Member Portal</a><a href="#track" onclick="setTimeout(()=>switchPortalTab('track'),100)">Track Application</a><a href="#faq">FAQ</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Southern Leyte Cooperative. All rights reserved.</p>
+      <p>Made with care for the people of Southern Leyte 🇵🇭</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#apply" class="fab"><div class="fab-dot"></div>Apply for a Loan</a>
+
+<script>
+// NAV
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+document.addEventListener('click',function(e){const m=document.getElementById('mobileMenu');if(m.classList.contains('open')&&!m.contains(e.target)&&!e.target.closest('.hamburger'))m.classList.remove('open');});
+
+// LOAN TERMS PER TYPE
+const loanConfig={
+  business:{max:150000,terms:[3,6,12,18,24,36,48,60],label:'Business Loan'},
+  educational:{max:50000,terms:[3,6,12,18,24,36],label:'Educational Loan'},
+  salary:{max:30000,terms:[3,6,12,18,24],label:'Salary Loan'}
+};
+
+function updateTerms(){
+  const type=document.getElementById('c-type').value;
+  const sel=document.getElementById('c-term');
+  sel.innerHTML=loanConfig[type].terms.map(t=>`<option value="${t}">${t} months${t>=12?' ('+Math.round(t/12*10)/10+' yr)':''}</option>`).join('');
+}
+updateTerms();
+
+const fmt=n=>n.toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function computeLoan(){
+  const type=document.getElementById('c-type').value;
+  const amount=Number(document.getElementById('c-amount').value);
+  const termMonths=Number(document.getElementById('c-term').value);
+  const errEl=document.getElementById('calc-error');
+  const resEl=document.getElementById('calc-results');
+  errEl.style.display='none';resEl.style.display='none';
+
+  if(!amount||amount<3000){errEl.textContent='Minimum loan amount is ₱3,000.';errEl.style.display='block';return;}
+  if(amount>loanConfig[type].max){errEl.textContent='Maximum loan for '+loanConfig[type].label+' is ₱'+fmt(loanConfig[type].max)+'.';errEl.style.display='block';return;}
+
+  // DEDUCTIONS
+  const serviceFee=amount*0.02;
+  const years=Math.ceil(termMonths/12);
+  const insurance=1235*years;
+  const shareCapital=amount*0.05;
+  const totalDeductions=serviceFee+insurance+shareCapital;
+  const netProceeds=amount-totalDeductions;
+
+  document.getElementById('deductions-rows').innerHTML=`
+    <div class="deduction-row"><div class="label">Loan Amount Applied</div><div class="amount">₱${fmt(amount)}</div></div>
+    <div class="deduction-row"><div class="label">Service Fee (2%)</div><div class="amount" style="color:#ff9999">− ₱${fmt(serviceFee)}</div></div>
+    <div class="deduction-row"><div class="label">Insurance (₱1,235 × ${years} yr${years>1?'s':''})</div><div class="amount" style="color:#ff9999">− ₱${fmt(insurance)}</div></div>
+    <div class="deduction-row"><div class="label">Share Capital (5%)</div><div class="amount" style="color:#ff9999">− ₱${fmt(shareCapital)}</div></div>
+    <div class="deduction-row total"><div class="label">Total Deductions</div><div class="amount">₱${fmt(totalDeductions)}</div></div>
+    <div class="deduction-row receive"><div class="label">💵 Amount You Will RECEIVE</div><div class="amount">₱${fmt(netProceeds)}</div></div>`;
+
+  // ANNUITY (equal payments, diminishing)
+  const r=0.02;
+  const n=termMonths;
+  const monthlyAnnuity=amount*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const totalAnnuity=monthlyAnnuity*n;
+  const totalInterestAnnuity=totalAnnuity-amount;
+  const semiAnnuity=monthlyAnnuity/2;
+  const weeklyAnnuity=monthlyAnnuity/4.33;
+  const dailyAnnuity=monthlyAnnuity/26;
+
+  document.getElementById('annuity-rows').innerHTML=`
+    <tr><td>Monthly</td><td class="amount-cell">₱${fmt(monthlyAnnuity)}</td><td style="color:rgba(255,255,255,.45)">12×/year</td></tr>
+    <tr><td>Twice a Month (15th &amp; 30th)</td><td class="amount-cell">₱${fmt(semiAnnuity)}</td><td style="color:rgba(255,255,255,.45)">24×/year</td></tr>
+    <tr><td>Weekly</td><td class="amount-cell">₱${fmt(weeklyAnnuity)}</td><td style="color:rgba(255,255,255,.45)">~52×/year</td></tr>
+    <tr><td>Daily (26 working days/mo)</td><td class="amount-cell">₱${fmt(dailyAnnuity)}</td><td style="color:rgba(255,255,255,.45)">~312×/year</td></tr>`;
+
+  document.getElementById('annuity-totals').innerHTML=`
+    <div class="total-row"><div class="tl">Loan Amount</div><div class="tv">₱${fmt(amount)}</div></div>
+    <div class="total-row"><div class="tl">Total to Pay Back (${n} months)</div><div class="tv">₱${fmt(totalAnnuity)}</div></div>
+    <div class="total-row interest"><div class="tl">Total Interest Over Full Term</div><div class="tv">₱${fmt(totalInterestAnnuity)}</div></div>`;
+
+  resEl.style.display='block';
+  resEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ELIGIBILITY
+function checkEligibility(){
+  const member=document.getElementById('e-member').value;
+  const income=document.getElementById('e-income').value;
+  const overdue=document.getElementById('e-overdue').value;
+  const el=document.getElementById('elig-result');
+  if(!member||!income||!overdue){el.className='elig-result ineligible';el.style.display='block';el.innerHTML='<h4>Please answer all questions.</h4><p>Fill in all 3 fields to check your eligibility.</p>';return;}
+  if(member==='no'){el.className='elig-result ineligible';el.style.display='block';el.innerHTML='<h4>Not Eligible at This Time</h4><p>Membership in the cooperative is required to apply for a loan. If you would like to become a member, please visit our office or contact your area collector. Membership is open to all residents of Southern Leyte.</p>';return;}
+  if(overdue==='yes'){el.className='elig-result ineligible';el.style.display='block';el.innerHTML='<h4>Existing Overdue Loan Found</h4><p>We noticed you have an existing overdue loan. Please settle your current balance first before applying for a new loan. You may visit our office to discuss payment restructuring options.</p>';return;}
+  if(income==='none'){el.className='elig-result ineligible';el.style.display='block';el.innerHTML='<h4>Income Requirement Not Met</h4><p>A stable source of income is required to qualify for a loan. This can be employment, farming, fishing, or a small business. If your financial situation changes, we encourage you to apply again.</p>';return;}
+  const limits={low:'₱10,000',mid:'₱50,000',high:'₱100,000',vhigh:'₱150,000'};
+  el.className='elig-result eligible';el.style.display='block';
+  el.innerHTML=`<h4>You May Be Eligible! ✓</h4><p>Based on your answers, you may qualify for a loan of up to approximately <strong>${limits[income]}</strong>. This is an estimate only — actual approval and amount depend on our team's full review of your application and documents.<br><br>👉 <strong>Next step:</strong> Use our <a href="#calculator" style="color:var(--green);font-weight:700">Loan Calculator</a> to see your exact payment schedule, then <a href="#apply" style="color:var(--green);font-weight:700">Apply Online</a> below.</p>`;
+}
+
+// FAQ
+function toggleFaq(el){const item=el.parentElement;item.classList.toggle('open');}
+
+// MEMBER TYPE SELECTION
+function selectMemberType(type){
+  const newCard=document.getElementById('type-new');
+  const reloanCard=document.getElementById('type-reloan');
+  const newForm=document.getElementById('new-applicant-form');
+  const reloanForm=document.getElementById('reloan-form');
+  if(type==='new'){
+    newCard.style.border='1.5px solid var(--green)';newCard.style.background='var(--gp)';
+    reloanCard.style.border='1.5px solid var(--gray2)';reloanCard.style.background='#fff';
+    newForm.style.display='';reloanForm.style.display='none';
+  }else{
+    reloanCard.style.border='1.5px solid #1a4a8a)';reloanCard.style.background='#e8f0fa';
+    newCard.style.border='1.5px solid var(--gray2)';newCard.style.background='#fff';
+    reloanForm.style.display='';newForm.style.display='none';
+  }
+}
+
+// PORTAL TAB SWITCHER
+function switchPortalTab(tab){
+  const portalTab=document.getElementById('portal-tab');
+  const trackTab=document.getElementById('track-tab');
+  const portalBtn=document.getElementById('portal-tab-btn');
+  const trackBtn=document.getElementById('track-tab-btn');
+  if(tab==='portal'){
+    portalTab.style.display='';trackTab.style.display='none';
+    portalBtn.style.background='var(--green)';portalBtn.style.color='#fff';
+    trackBtn.style.background='transparent';trackBtn.style.color='rgba(255,255,255,.6)';
+  }else{
+    trackTab.style.display='';portalTab.style.display='none';
+    trackBtn.style.background='var(--green)';trackBtn.style.color='#fff';
+    portalBtn.style.background='transparent';portalBtn.style.color='rgba(255,255,255,.6)';
+  }
+}
+
+// N8N ENDPOINTS
+const N8N_WEBHOOK='https://patriciatelen14.app.n8n.cloud/webhook/loan-application';
+const N8N_TRACK='https://patriciatelen14.app.n8n.cloud/webhook/track-application';
+const N8N_PORTAL='https://patriciatelen14.app.n8n.cloud/webhook/member-portal';
+const N8N_GET_APPS='https://patriciatelen14.app.n8n.cloud/webhook/get-applications';
+
+// APPLICATION SUBMISSION
+let appCounter=Math.floor(Math.random()*900)+100;
+
+function submitApp(type){
+  const ref='APP-'+String(++appCounter).padStart(4,'0');
+  const today=new Date().toISOString().split('T')[0];
+  const time=new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'});
+  let payload={ref,date:today,time,applicant_type:type};
+  if(type==='new'){
+    const fname=document.getElementById('f-fname').value.trim();
+    const lname=document.getElementById('f-lname').value.trim();
+    const phone=document.getElementById('f-phone').value.trim();
+    const dob=document.getElementById('f-dob').value;
+    const address=document.getElementById('f-address').value.trim();
+    const loantype=document.getElementById('f-loantype').value;
+    const amount=Number(document.getElementById('f-amount').value);
+    const purpose=document.getElementById('f-purpose').value.trim();
+    const income=document.getElementById('f-income').value;
+    const payment=document.getElementById('f-payment').value;
+    if(!fname||!lname||!phone||!dob||!address||!loantype||!amount||!purpose||!income||!payment){alert('Please fill in all fields.');return;}
+    if(amount<3000){alert('Minimum loan amount is ₱3,000.');return;}
+    const areaMap={'hinundayan':'Hinundayan','saint bernard':'Saint Bernard','st. bernard':'Saint Bernard','st bernard':'Saint Bernard','san juan':'San Juan','hinunangan':'Hinunangan'};
+    const al=address.toLowerCase();let detectedArea='San Juan';
+    for(const[k,v]of Object.entries(areaMap)){if(al.includes(k)){detectedArea=v;break;}}
+    Object.assign(payload,{fname,lname,phone,dob,address,area:detectedArea,loantype,amount,purpose,income,payment,member_id_ref:''});
+  }else{
+    const memberid=document.getElementById('rl-memberid').value.trim();
+    const phone=document.getElementById('rl-phone').value.trim();
+    const loantype=document.getElementById('rl-loantype').value;
+    const amount=Number(document.getElementById('rl-amount').value);
+    const purpose=document.getElementById('rl-purpose').value.trim();
+    const payment=document.getElementById('rl-payment').value;
+    if(!memberid||!phone||!loantype||!amount||!purpose||!payment){alert('Please fill in all fields.');return;}
+    if(amount<3000){alert('Minimum loan amount is ₱3,000.');return;}
+    Object.assign(payload,{fname:'Re-loan',lname:memberid,phone,address:'',area:'',loantype,amount,purpose,income:0,payment,member_id_ref:memberid});
+  }
+  const btn=document.querySelector(type==='new'?'#new-applicant-form .form-submit':'#reloan-form .form-submit');
+  btn.textContent='Submitting...';btn.disabled=true;btn.style.opacity='0.7';
+  fetch(N8N_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(()=>saveAndShowSuccess(ref,payload,today))
+  .catch(()=>saveAndShowSuccess(ref,payload,today))
+  .finally(()=>{btn.textContent='Submit My Application';btn.disabled=false;btn.style.opacity='1';});
+}
+
+function saveAndShowSuccess(ref,payload,today){
+  const apps=JSON.parse(localStorage.getItem('slcoop-pub-apps')||'[]');
+  apps.push({ref,fname:payload.fname,lname:payload.lname,phone:payload.phone,loantype:payload.loantype,amount:payload.amount,date:today,status:'new',area:payload.area,applicant_type:payload.applicant_type,member_id_ref:payload.member_id_ref||''});
+  localStorage.setItem('slcoop-pub-apps',JSON.stringify(apps));
+  document.getElementById('appForm').style.display='none';
+  document.getElementById('successMsg').style.display='block';
+  document.getElementById('appRef').textContent=ref;
+}
+
+// TRACK APPLICATION
+function trackApplication(){
+  const ref=document.getElementById('t-ref').value.trim().toUpperCase();
+  const phone=document.getElementById('t-phone').value.trim().replace(/\D/g,'');
+  const el=document.getElementById('track-result');
+  if(!ref||!phone){el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px">Please enter your reference number and phone number.</p>';return;}
+  el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px">Looking up your application...</p>';
+  // PRIORITY: Always check Google Sheets first for live status
+  fetch(N8N_GET_APPS,{method:'GET'})
+  .then(r=>r.json())
+  .then(sheetData=>{
+    if(!Array.isArray(sheetData))throw new Error('No data');
+    const row=sheetData.find(r=>{
+      const rowRef=(r['Reference']||'').toString().trim().toUpperCase();
+      const rowPhone=(r['Phone']||'').toString().replace(/\D/g,'');
+      return rowRef===ref&&rowPhone===phone;
+    });
+    if(row){
+      // Update localStorage with latest status from Sheets
+      const apps=JSON.parse(localStorage.getItem('slcoop-pub-apps')||'[]');
+      const idx=apps.findIndex(a=>a.ref===ref);
+      const updated={
+        ref:row['Reference']||ref,
+        fname:(row['First Name']||'Applicant'),
+        lname:row['Last Name']||'',
+        loantype:row['Loan Type']||'',
+        amount:Number(row['Amount'])||0,
+        date:row['Date Submitted']||'',
+        status:row['Status']||'new',
+        approved_amount:Number(row['Approved Amount'])||0,
+        applicant_type:row['Applicant Type']||'new',
+        phone
+      };
+      if(idx>=0)apps[idx]={...apps[idx],...updated};
+      else apps.push(updated);
+      localStorage.setItem('slcoop-pub-apps',JSON.stringify(apps));
+      showTrackResult(el,updated);
+    } else {
+      // Not in Sheets — try localStorage as final fallback
+      trackFromLocal(el,ref,phone);
+    }
+  })
+  .catch(()=>trackFromLocal(el,ref,phone));
+}
+
+function trackFromLocal(el,ref,phone){
+  // First try localStorage
+  const apps=JSON.parse(localStorage.getItem('slcoop-pub-apps')||'[]');
+  const app=apps.find(a=>a.ref===ref&&(a.phone||'').replace(/\D/g,'')===phone);
+  if(app){
+    showTrackResult(el,{ref:app.ref,fname:app.fname,lname:app.lname,loantype:app.loantype,amount:app.amount,date:app.date,status:app.status||'new',approved_amount:app.approved_amount||0,applicant_type:app.applicant_type||'new'});
+    return;
+  }
+  // If not in localStorage, try fetching all apps from Google Sheets via n8n
+  el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px">Searching records...</p>';
+  fetch(N8N_GET_APPS,{method:'GET'})
+  .then(r=>r.json())
+  .then(sheetData=>{
+    if(!Array.isArray(sheetData))throw new Error('No data');
+    const row=sheetData.find(r=>{
+      const rowRef=(r['Reference']||r.Reference||'').toString().toUpperCase();
+      const rowPhone=(r['Phone']||r.Phone||'').toString().replace(/\D/g,'');
+      return rowRef===ref&&rowPhone===phone;
+    });
+    if(!row){
+      el.innerHTML='<p style="color:#ff9999;font-size:13px">Application not found. Please check your reference number and phone number. If you submitted from a different device, allow a few minutes for the system to sync.</p>';
+      return;
+    }
+    showTrackResult(el,{
+      ref:row['Reference']||ref,
+      fname:(row['First Name']||'Applicant').split(' ')[0],
+      lname:row['Last Name']||'',
+      loantype:row['Loan Type']||'',
+      amount:Number(row['Amount'])||0,
+      date:row['Date Submitted']||'',
+      status:row['Status']||'new',
+      approved_amount:Number(row['Approved Amount'])||0,
+      applicant_type:row['Applicant Type']||'new'
+    });
+  })
+  .catch(()=>{
+    el.innerHTML='<p style="color:#ff9999;font-size:13px">Application not found. Please check your reference number and phone number.</p>';
+  });
+}
+
+function showTrackResult(el,data){
+  const statusMap={new:'Under Review',pending:'Being Processed',approved:'Approved ✓',rejected:'Not Approved','partial-approval':'Partially Approved'};
+  const statusClass={new:'status-new',pending:'status-pending',approved:'status-approved',rejected:'status-rejected','partial-approval':'status-partial'};
+  const statusMsg={
+    new:'Your application has been received and is currently under review by our team. We will reach out to you within 1–2 business days. Thank you for your patience!',
+    pending:'Our team is currently processing your application. We may contact you if additional documents are needed.',
+    approved:'Congratulations! Your loan has been approved. Please visit our office with your valid ID to claim during business hours (Mon–Sat, 8AM–5PM).',
+    rejected:'We regret to inform you that your application was not approved at this time. Please visit our office to discuss your options.',
+    'partial-approval':`Your application was approved for ₱${Number(data.approved_amount||0).toLocaleString('en-PH',{minimumFractionDigits:2})}. Please visit our office for full details.`
+  };
+  const isReloan=data.applicant_type==='reloan';
+  el.innerHTML=`<h4>${isReloan?'Member '+data.lname:data.fname+' '+data.lname}</h4>
+    <div class="ref">${data.ref} · ${data.loantype} · ₱${Number(data.amount).toLocaleString('en-PH',{minimumFractionDigits:2})}</div>
+    <div class="status-badge ${statusClass[data.status]||'status-new'}">${statusMap[data.status]||'Under Review'}</div>
+    ${data.status==='partial-approval'?`<div style="font-size:12px;color:#ffcc55;margin-bottom:8px;font-weight:700">Approved: ₱${Number(data.approved_amount||0).toLocaleString('en-PH',{minimumFractionDigits:2})} of ₱${Number(data.amount).toLocaleString('en-PH',{minimumFractionDigits:2})} requested</div>`:''}
+    <div class="track-info">Submitted: ${data.date}<br><br>${statusMsg[data.status]||statusMsg.new}</div>`;
+}
+
+// MEMBER PORTAL
+function viewMemberPortal(){
+  const memberId=document.getElementById('p-memberid').value.trim().toUpperCase();
+  const phone=document.getElementById('p-phone').value.trim().replace(/\D/g,'');
+  const el=document.getElementById('portal-result');
+  if(!memberId||!phone){el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px;margin-top:12px">Please enter your Member ID and phone number.</p>';return;}
+  el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px;margin-top:12px">Loading your account...</p>';
+  fetch(N8N_PORTAL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({memberId,phone})})
+  .then(r=>r.json())
+  .then(data=>{if(data&&data.found)showMemberPortal(el,data);else el.innerHTML='<div style="background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:#f1948a">Member not found. Please check your Member ID and phone number. If you believe this is an error, contact your assigned collector.</div>';})
+  .catch(()=>{el.innerHTML='<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:rgba(255,255,255,.5)">Unable to connect right now. Please try again or contact our office directly.</div>';});
+}
+
+function showMemberPortal(el,data){
+  const fmtP=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const paidSoFar=data.loanTotal-data.loanBalance;
+  const pctPaid=data.loanTotal>0?Math.min(100,Math.round((paidSoFar/data.loanTotal)*100)):0;
+  el.innerHTML=`<div style="margin-top:14px">
+    <div style="background:rgba(26,138,60,.15);border:1px solid rgba(26,138,60,.3);border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:var(--gl);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Member Information</div>
+      <div style="font-size:15px;font-weight:800;color:#fff">${data.name}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">${data.memberId} · ${data.area} · ${data.schedule} collection</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Active Loan Summary</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px">Total Loan</div><div style="font-size:16px;font-weight:800;color:#fff">${fmtP(data.loanTotal)}</div></div>
+        <div style="background:rgba(192,57,43,.15);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px">Remaining Balance</div><div style="font-size:16px;font-weight:800;color:#ff9999">${fmtP(data.loanBalance)}</div></div>
+        <div style="background:rgba(26,138,60,.1);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px">Total Paid</div><div style="font-size:16px;font-weight:800;color:var(--gl)">${fmtP(paidSoFar)}</div></div>
+        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px">Due Per Period</div><div style="font-size:16px;font-weight:800;color:#fff">${fmtP(data.dueAmount)}</div></div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px"><span>Loan Progress</span><span>${pctPaid}% paid</span></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:20px;height:8px;overflow:hidden"><div style="background:var(--gl);height:100%;width:${pctPaid}%;border-radius:20px"></div></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Payment History (${(data.payments||[]).length} records)</div>
+      ${!(data.payments||[]).length?'<div style="font-size:13px;color:rgba(255,255,255,.3);text-align:center;padding:12px">No payment records found.</div>':
+      `<div style="max-height:220px;overflow-y:auto">${[...(data.payments||[])].reverse().map(p=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+          <div><div style="font-size:12px;font-weight:600;color:#fff">${p.type} payment</div><div style="font-size:10px;color:rgba(255,255,255,.35)">${p.date} ${p.time||''} · ${p.refNo}</div></div>
+          <div style="font-size:14px;font-weight:800;color:var(--gl)">${fmtP(p.amount)}</div>
+        </div>`).join('')}</div>`}
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px">Data updated in real time. For concerns, contact your assigned collector.</div>
+  </div>`;
+}
+</script>
+</body>
+</html>
