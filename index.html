@@ -990,10 +990,10 @@ function switchPortalTab(tab){
 }
 
 // N8N ENDPOINTS
-const N8N_WEBHOOK='https://patriciatelen14.app.n8n.cloud/webhook/loan-application';
-const N8N_TRACK='https://patriciatelen14.app.n8n.cloud/webhook/track-application';
-const N8N_PORTAL='https://patriciatelen14.app.n8n.cloud/webhook/member-portal';
-const N8N_GET_APPS='https://patriciatelen14.app.n8n.cloud/webhook/get-applications';
+const N8N_WEBHOOK='https://patriciatelen14.app.n8n.cloud/webhook/slcoop-api';
+const N8N_TRACK='https://patriciatelen14.app.n8n.cloud/webhook/slcoop-api';
+const N8N_PORTAL='https://patriciatelen14.app.n8n.cloud/webhook/slcoop-api';
+const N8N_GET_APPS='https://patriciatelen14.app.n8n.cloud/webhook/slcoop-api';
 
 // APPLICATION SUBMISSION
 let appCounter=Math.floor(Math.random()*900)+100;
@@ -1033,7 +1033,7 @@ function submitApp(type){
   }
   const btn=document.querySelector(type==='new'?'#new-applicant-form .form-submit':'#reloan-form .form-submit');
   btn.textContent='Submitting...';btn.disabled=true;btn.style.opacity='0.7';
-  fetch(N8N_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  fetch(N8N_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'loan-application',...payload})})
   .then(()=>saveAndShowSuccess(ref,payload,today))
   .catch(()=>saveAndShowSuccess(ref,payload,today))
   .finally(()=>{btn.textContent='Submit My Application';btn.disabled=false;btn.style.opacity='1';});
@@ -1158,7 +1158,7 @@ function viewMemberPortal(){
   const el=document.getElementById('portal-result');
   if(!memberId||!phone){el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px;margin-top:12px">Please enter your Member ID and phone number.</p>';return;}
   el.style.display='block';el.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px;margin-top:12px">Loading your account...</p>';
-  fetch(N8N_PORTAL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({memberId,phone})})
+  fetch(N8N_PORTAL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'member-portal',memberId,phone})})
   .then(r=>r.json())
   .then(data=>{if(data&&data.found)showMemberPortal(el,data);else el.innerHTML='<div style="background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:#f1948a">Member not found. Please check your Member ID and phone number. If you believe this is an error, contact your assigned collector.</div>';})
   .catch(()=>{el.innerHTML='<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:rgba(255,255,255,.5)">Unable to connect right now. Please try again or contact our office directly.</div>';});
